@@ -77,7 +77,7 @@ export default class RpcServer extends grpc.Server {
           }
         }
 
-        const message = `Rpc server running at http://${this.host}:${this.port}`;
+        const message = `Rpc server running at http://${this.#host}:${this.#port}`;
         this.emit('DEBUG', {
           source: LOG_SOURCES.RPC,
           level: LOG_LEVELS.INFO,
@@ -86,7 +86,7 @@ export default class RpcServer extends grpc.Server {
       }
     };
 
-    return [`${this.host}:${this.port}`, this.channel, callback];
+    return [`${this.#host}:${this.#port}`, this.#channel, callback];
   }
 
   /**

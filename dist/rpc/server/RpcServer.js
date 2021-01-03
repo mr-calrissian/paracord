@@ -6,6 +6,12 @@ var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (
     privateMap.set(receiver, value);
     return value;
 };
+var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (receiver, privateMap) {
+    if (!privateMap.has(receiver)) {
+        throw new TypeError("attempted to get private field on non-instance");
+    }
+    return privateMap.get(receiver);
+};
 var _host, _port, _channel;
 Object.defineProperty(exports, "__esModule", { value: true });
 const structures_1 = require("../../clients/Api/structures");
@@ -46,7 +52,7 @@ class RpcServer extends grpc.Server {
                         console.error('server must be bound in order to start. maybe this host:port is already in use?');
                     }
                 }
-                const message = `Rpc server running at http://${this.host}:${this.port}`;
+                const message = `Rpc server running at http://${__classPrivateFieldGet(this, _host)}:${__classPrivateFieldGet(this, _port)}`;
                 this.emit('DEBUG', {
                     source: constants_1.LOG_SOURCES.RPC,
                     level: constants_1.LOG_LEVELS.INFO,
@@ -54,7 +60,7 @@ class RpcServer extends grpc.Server {
                 });
             }
         };
-        return [`${this.host}:${this.port}`, this.channel, callback];
+        return [`${__classPrivateFieldGet(this, _host)}:${__classPrivateFieldGet(this, _port)}`, __classPrivateFieldGet(this, _channel), callback];
     }
     addRequestService(token, apiOptions = {}) {
         services_1.addRequestService(this, token, apiOptions);
